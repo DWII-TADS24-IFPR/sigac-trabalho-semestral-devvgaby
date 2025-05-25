@@ -13,6 +13,8 @@ class CheckRole
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+
+    //protege com middleware na hora da autenticação ao se logar
     public function handle(Request $request, Closure $next, $role): Response
     {
         if (!$request->user() || $request->user()->role->nome !== $role) {

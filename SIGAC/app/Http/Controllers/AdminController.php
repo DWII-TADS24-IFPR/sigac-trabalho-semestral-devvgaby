@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    //view para a pagina principal do admin
     public function dashboard()
     {
         return view('admin.dashboard');
