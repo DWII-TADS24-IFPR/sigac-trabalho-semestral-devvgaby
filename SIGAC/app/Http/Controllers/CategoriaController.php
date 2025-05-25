@@ -13,18 +13,19 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
-        return view('categorias.index', compact('categorias'));
+        $categorias = Categoria::with('curso')->get();
+        return view('admin.categorias.index', compact('categorias'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+     public function create()
     {
         $cursos = Curso::all();
-        return view('categorias.create', compact('cursos'));
+        return view('admin.categorias.create', compact('cursos'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -33,47 +34,44 @@ class CategoriaController extends Controller
     {
         Categoria::create($request->validated());
 
-        return redirect()->route('categorias.index')->with('success', 'Categoria criada com sucesso!');
+        return redirect()->route('admin.categorias.index')->with('success', 'Categoria criada com sucesso!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Categoria $categoria)
     {
-        $categoria = Categoria::findOrFail($id);
-        return view('categorias.show', compact('categoria'));
+        return view('admin.categorias.show', compact('categoria'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+   public function edit(Categoria $categoria)
     {
-        $categoria = Categoria::findOrFail($id);
         $cursos = Curso::all();
-        return view('categorias.edit', compact('categoria', 'cursos'));
+        return view('admin.categorias.edit', compact('categoria', 'cursos'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoriaRequest $request, string $id)
+    public function update(CategoriaRequest $request, Categoria $categoria)
     {
-        $categoria = Categoria::findOrFail($id);
         $categoria->update($request->validated());
 
-        return redirect()->route('categorias.index')->with('success', 'Categoria atualizada com sucesso!');
+        return redirect()->route('admin.categorias.index')->with('success', 'Categoria atualizada com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Categoria $categoria)
     {
-        $categoria = Categoria::findOrFail($id);
         $categoria->delete();
 
-        return redirect()->route('categorias.index')->with('success', 'Categoria excluída com sucesso!');
+        return redirect()->route('admin.categorias.index')->with('success', 'Categoria excluída com sucesso!');
     }
 }

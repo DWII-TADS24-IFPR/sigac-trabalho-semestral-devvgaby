@@ -10,21 +10,21 @@ class NivelController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(NivelRequest $request) 
+    public function store(NivelRequest $request)
     {
         Nivel::create($request->validated());
 
-        return redirect()->route('niveis.index')->with('success', 'Nível criado com sucesso!');
+        return redirect()->route('admin.niveis.index')->with('success', 'Nível criado com sucesso!');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(NivelRequest $request, Nivel $nivel) 
+    public function update(NivelRequest $request, Nivel $nivel)
     {
         $nivel->update($request->validated());
 
-        return redirect()->route('niveis.index')->with('success', 'Nível atualizado com sucesso!');
+        return redirect()->route('admin.niveis.index')->with('success', 'Nível atualizado com sucesso!');
     }
 
     /**
@@ -32,9 +32,9 @@ class NivelController extends Controller
      */
     public function destroy(Nivel $nivel)
     {
-        $nivel->delete(); 
+        $nivel->delete();
 
-        return redirect()->route('niveis.index')->with('success', 'Nível excluído com sucesso!');
+        return redirect()->route('admin.niveis.index')->with('success', 'Nível deletado com sucesso!');
     }
 
     /**
@@ -42,24 +42,24 @@ class NivelController extends Controller
      */
     public function create()
     {
-        return view('niveis.create');
+        return view('admin.niveis.create');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Nivel $nivel)
+   public function edit(Nivel $nivel)
     {
-        return view('niveis.edit', compact('nivel'));
+        return view('admin.niveis.edit', compact('nivel'));
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index()
     {
-        $niveis = Nivel::all(); 
-        return view('niveis.index', compact('niveis'));
+        $niveis = Nivel::paginate(10);
+        return view('admin.niveis.index', compact('niveis'));
     }
 
     /**
@@ -79,25 +79,4 @@ class NivelController extends Controller
         return view('niveis.trashed', compact('niveis'));
     }
 
-    /**
-     * Restore the specified trashed resource.
-     */
-    public function restore($id)
-    {
-        $nivel = Nivel::onlyTrashed()->find($id);
-        $nivel->restore();
-
-        return redirect()->route('niveis.index')->with('success', 'Nível restaurado com sucesso!');
-    }
-
-    /**
-     * Permanently remove the specified trashed resource from storage.
-     */
-    public function forceDelete($id)
-    {
-        $nivel = Nivel::onlyTrashed()->find($id);
-        $nivel->forceDelete();
-
-        return redirect()->route('niveis.index')->with('success', 'Nível excluído permanentemente!');
-    }
 }

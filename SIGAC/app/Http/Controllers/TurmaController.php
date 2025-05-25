@@ -11,21 +11,21 @@ class TurmaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TurmaRequest $request) 
+    public function store(TurmaRequest $request)
     {
         Turma::create($request->validated());
 
-        return redirect()->route('turmas.index')->with('success', 'Turma criada com sucesso!');
+        return redirect()->route('admin.turmas.index')->with('success', 'Turma criada com sucesso!');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(TurmaRequest $request, Turma $turma) 
+    public function update(TurmaRequest $request, Turma $turma)
     {
         $turma->update($request->validated());
 
-        return redirect()->route('turmas.index')->with('success', 'Turma atualizada com sucesso!');
+        return redirect()->route('admin.turmas.index')->with('success', 'Turma atualizada com sucesso!');
     }
 
     /**
@@ -33,9 +33,9 @@ class TurmaController extends Controller
      */
     public function destroy(Turma $turma)
     {
-        $turma->delete(); // Soft delete
+        $turma->delete();
 
-        return redirect()->route('turmas.index')->with('success', 'Turma excluída com sucesso!');
+        return redirect()->route('admin.turmas.index')->with('success', 'Turma deletada com sucesso!');
     }
 
     /**
@@ -43,8 +43,8 @@ class TurmaController extends Controller
      */
     public function create()
     {
-        $cursos = Curso::all(); 
-        return view('turmas.create', compact('cursos'));
+        $cursos = Curso::all();
+        return view('admin.turmas.create', compact('cursos'));
     }
 
     /**
@@ -52,8 +52,8 @@ class TurmaController extends Controller
      */
     public function edit(Turma $turma)
     {
-        $cursos = Curso::all(); 
-        return view('turmas.edit', compact('turma', 'cursos'));
+        $cursos = Curso::all();
+        return view('admin.turmas.edit', compact('turma', 'cursos'));
     }
 
     /**
@@ -61,10 +61,9 @@ class TurmaController extends Controller
      */
     public function index()
     {
-        $turmas = Turma::all(); 
-        return view('turmas.index', compact('turmas'));
+        $turmas = Turma::with('curso')->paginate(10);
+        return view('admin.turmas.index', compact('turmas'));
     }
-
     /**
      * Display the specified resource.
      */
@@ -81,26 +80,5 @@ class TurmaController extends Controller
         $turmas = Turma::onlyTrashed()->get();
         return view('turmas.trashed', compact('turmas'));
     }
-
-    /**
-     * Restore the specified trashed resource.
-     */
-    public function restore($id)
-    {
-        $turma = Turma::onlyTrashed()->find($id);
-        $turma->restore();
-
-        return redirect()->route('turmas.index')->with('success', 'Turma restaurada com sucesso!');
-    }
-
-    /**
-     * Permanently remove the specified trashed resource from storage.
-     */
-    public function forceDelete($id)
-    {
-        $turma = Turma::onlyTrashed()->find($id);
-        $turma->forceDelete(); 
-
-        return redirect()->route('turmas.index')->with('success', 'Turma excluída permanentemente!');
-    }
+    
 }
