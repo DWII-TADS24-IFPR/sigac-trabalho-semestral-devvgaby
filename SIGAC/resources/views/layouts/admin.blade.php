@@ -7,6 +7,8 @@
     <title>@yield('title', 'Admin')</title>
 
     @vite(['resources/js/app.js'])
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 
     @stack('styles')
 </head>
@@ -14,7 +16,15 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            
+            <nav class="navbar navbar-dark bg-dark sticky-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-flex align-items-center" href="{{ route('admin.dashboard') }}">
+                        <i class="bi bi-house-door-fill me-2"></i> 
+                        SIGAC
+                    </a>
+                </div>
+            </nav>
+
             <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-sticky pt-3">
                     <h5 class="text-white px-3">Painel Administrativo</h5>
@@ -27,11 +37,14 @@
                                     Alunos
                                 </button>
                             </h2>
-                            <div id="collapseAlunos" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div id="collapseAlunos" class="accordion-collapse collapse"
+                                data-bs-parent="#sidebarAccordion">
                                 <div class="accordion-body p-0">
                                     <ul class="nav flex-column ms-3">
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.alunos.create') }}">➕ Adicionar</a></li>
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.alunos.index') }}">📋 Ver Alunos</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.alunos.create') }}">➕ Adicionar</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.alunos.index') }}">📋 Ver Alunos</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -44,11 +57,14 @@
                                     Cursos
                                 </button>
                             </h2>
-                            <div id="collapseCursos" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div id="collapseCursos" class="accordion-collapse collapse"
+                                data-bs-parent="#sidebarAccordion">
                                 <div class="accordion-body p-0">
                                     <ul class="nav flex-column ms-3">
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.cursos.create') }}">➕ Adicionar</a></li>
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.cursos.index') }}">📋 Ver Cursos</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.cursos.create') }}">➕ Adicionar</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.cursos.index') }}">📋 Ver Cursos</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -61,11 +77,14 @@
                                     Turmas
                                 </button>
                             </h2>
-                            <div id="collapseTurmas" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div id="collapseTurmas" class="accordion-collapse collapse"
+                                data-bs-parent="#sidebarAccordion">
                                 <div class="accordion-body p-0">
                                     <ul class="nav flex-column ms-3">
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.turmas.create') }}">➕ Adicionar</a></li>
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.turmas.index') }}">📋 Ver Turmas</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.turmas.create') }}">➕ Adicionar</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.turmas.index') }}">📋 Ver Turmas</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -78,11 +97,14 @@
                                     Eixos
                                 </button>
                             </h2>
-                            <div id="collapseEixos" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div id="collapseEixos" class="accordion-collapse collapse"
+                                data-bs-parent="#sidebarAccordion">
                                 <div class="accordion-body p-0">
                                     <ul class="nav flex-column ms-3">
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.eixos.create') }}">➕ Adicionar</a></li>
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.eixos.index') }}">📋 Ver Eixos</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.eixos.create') }}">➕ Adicionar</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.eixos.index') }}">📋 Ver Eixos</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -95,11 +117,14 @@
                                     Níveis
                                 </button>
                             </h2>
-                            <div id="collapseNiveis" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div id="collapseNiveis" class="accordion-collapse collapse"
+                                data-bs-parent="#sidebarAccordion">
                                 <div class="accordion-body p-0">
                                     <ul class="nav flex-column ms-3">
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.niveis.create') }}">➕ Adicionar</a></li>
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.niveis.index') }}">📋 Ver Níveis</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.niveis.create') }}">➕ Adicionar</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.niveis.index') }}">📋 Ver Níveis</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -109,14 +134,17 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed bg-dark text-white" type="button"
                                     data-bs-toggle="collapse" data-bs-target="#collapseCategorias">
-                                    Categorias 
+                                    Categorias
                                 </button>
                             </h2>
-                            <div id="collapseCategorias" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div id="collapseCategorias" class="accordion-collapse collapse"
+                                data-bs-parent="#sidebarAccordion">
                                 <div class="accordion-body p-0">
                                     <ul class="nav flex-column ms-3">
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.categorias.create') }}">➕ Adicionar</a></li>
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.categorias.index') }}">📋 Ver Categorias</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.categorias.create') }}">➕ Adicionar</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.categorias.index') }}">📋 Ver Categorias</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -129,10 +157,13 @@
                                     Avaliações
                                 </button>
                             </h2>
-                            <div id="collapseAvaliacoes" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div id="collapseAvaliacoes" class="accordion-collapse collapse"
+                                data-bs-parent="#sidebarAccordion">
                                 <div class="accordion-body p-0">
                                     <ul class="nav flex-column ms-3">
-                                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.avaliacoes.index') }}">📋 Avaliar Solicitações</a></li>
+                                        <li class="nav-item"><a class="nav-link text-white"
+                                                href="{{ route('admin.avaliacoes.index') }}">📋 Avaliar Solicitações</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -165,4 +196,3 @@
 </body>
 
 </html>
-
