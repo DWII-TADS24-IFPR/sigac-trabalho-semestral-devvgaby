@@ -19,10 +19,15 @@ class AvaliacaoController extends Controller
         return view('admin.avaliacoes.index', compact('solicitacoes'));
     }
 
-    public function aprovar($id)
+    public function aprovar(Request $request, $id)
     {
+        $request->validate([
+            'horas_out' => 'required|numeric|min:0.1',
+        ]);
+
         $solicitacao = Documento::findOrFail($id);
         $solicitacao->status = 'aprovado';
+        $solicitacao->horas_out = $request->horas_out;
         $solicitacao->comentario = null;
         $solicitacao->save();
 
@@ -63,8 +68,7 @@ class AvaliacaoController extends Controller
      */
     public function show($id)
     {
-        $solicitacao = Documento::with(['user.aluno', 'categoria'])
-            ->findOrFail($id);
+        $solicitacao = Documento::with(['user.aluno', 'categoria'])->findOrFail($id);
 
         return view('admin.avaliacoes.show', compact('solicitacao'));
     }

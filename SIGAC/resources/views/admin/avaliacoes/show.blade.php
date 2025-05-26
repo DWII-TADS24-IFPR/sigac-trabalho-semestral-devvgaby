@@ -8,16 +8,23 @@
         <h5 class="card-title">{{ $solicitacao->atividade }}</h5>
         <p><strong>Aluno:</strong> {{ $solicitacao->user->aluno->nome }}</p>
         <p><strong>Categoria:</strong> {{ $solicitacao->categoria->nome }}</p>
-        <p><strong>Horas:</strong> {{ $solicitacao->horas }}</p>
+        <p><strong>Horas Solicitadas:</strong> {{ $solicitacao->horas_in }}</p>
+        @if($solicitacao->horas_out)
+            <p><strong>Horas Aprovadas:</strong> {{ $solicitacao->horas_out }}</p>
+        @endif
         <p><strong>Status atual:</strong> {{ ucfirst($solicitacao->status) }}</p>
         <p><strong>Comentário:</strong> {{ $solicitacao->comentario ?? 'Nenhum' }}</p>
-        <p><strong>Documento:</strong> <a href="{{ asset($solicitacao->url) }}" target="_blank">Ver arquivo</a></p>
+        <p><strong>Documento:</strong> <a href="{{ asset('storage/' . $solicitacao->url) }}" target="_blank">Ver arquivo</a></p>
     </div>
 </div>
 
 @if($solicitacao->status == 'pendente')
-    <form action="{{ route('admin.avaliacoes.aprovar', $solicitacao->id) }}" method="POST" class="d-inline">
+    <form action="{{ route('admin.avaliacoes.aprovar', $solicitacao->id) }}" method="POST" class="mb-3">
         @csrf
+        <div class="mb-3">
+            <label for="horas_out" class="form-label">Horas a serem aprovadas</label>
+            <input type="number" name="horas_out" step="0.1" min="0.1" class="form-control" required>
+        </div>
         <button type="submit" class="btn btn-success">Aprovar</button>
     </form>
 
@@ -39,6 +46,6 @@
 @endif
 
 <a href="{{ route('admin.avaliacoes.index') }}" class="btn btn-secondary mt-3">Voltar</a>
-
 @endsection
+
 

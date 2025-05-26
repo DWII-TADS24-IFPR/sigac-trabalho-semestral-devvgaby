@@ -13,7 +13,7 @@
                 <th>Aluno</th>
                 <th>Atividade</th>
                 <th>Categoria</th>
-                <th>Horas</th>
+                <th>Horas Solicitadas</th>
                 <th>Status</th>
                 <th>Data</th>
                 <th>Ações</th>
@@ -25,13 +25,24 @@
                     <td>{{ $doc->user->aluno->nome ?? 'Aluno não encontrado' }}</td>
                     <td>{{ $doc->atividade }}</td>
                     <td>{{ $doc->categoria->nome ?? 'Categoria não encontrada' }}</td>
-                    <td>{{ $doc->horas_in ?? $doc->horas_out }}</td>
-                    <td>{{ ucfirst($doc->status) }}</td>
+                    <td>{{ $doc->horas_in }}</td>
+                    <td>
+                        @php
+                            $status = strtolower($doc->status);
+                        @endphp
+                        <span class="
+                            @if($status == 'aprovado') badge bg-success
+                            @elseif($status == 'rejeitado') badge bg-danger
+                            @else badge bg-warning text-dark
+                            @endif
+                        ">
+                            {{ ucfirst($status) }}
+                        </span>
+                    </td>
                     <td>{{ $doc->created_at->format('d/m/Y') }}</td>
                     <td>
                         <a href="{{ route('admin.avaliacoes.show', $doc->id) }}" class="btn btn-primary btn-sm">Avaliar</a>
                     </td>
-
                 </tr>
             @endforeach
         </tbody>
