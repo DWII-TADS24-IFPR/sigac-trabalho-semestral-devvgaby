@@ -44,10 +44,10 @@
                     datasets: [{
                         label: 'Horas Complementares',
                         data: horas,
-                        backgroundColor: 'rgba(13, 110, 253, 0.7)', // Bootstrap primary blue com transparência
+                        backgroundColor: 'rgba(13, 110, 253, 0.7)',
                         borderColor: 'rgba(13, 110, 253, 1)',
                         borderWidth: 1,
-                        borderRadius: 5, // cantos arredondados nas barras
+                        borderRadius: 5, 
                     }]
                 },
                 options: {

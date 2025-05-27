@@ -5,33 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Turma;
 use App\Models\Aluno;
-use App\Models\Comprovante;
+use App\Models\Documento;
 
 class GraficoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-     public function index(Request $request)
+    public function index(Request $request)
     {
         $turmas = Turma::with('curso')->get();
-
         $turma_id = $request->input('turma_id');
 
         $dadosGrafico = [];
 
         if ($turma_id) {
-            
             $alunos = Aluno::where('turma_id', $turma_id)->get();
 
             foreach ($alunos as $aluno) {
-                
-                $totalHoras = Comprovante::where('aluno_id', $aluno->id)
-                    ->sum('horas');
+                $totalHorasCumpridas = Documento::where('user_id', $aluno->user_id)
+                    ->where('status', 'aprovado')
+                    ->sum('horas_out');
 
                 $dadosGrafico[] = [
                     'nome' => $aluno->nome,
-                    'horas' => $totalHoras,
+                    'horas' => $totalHorasCumpridas,
                 ];
             }
         }
