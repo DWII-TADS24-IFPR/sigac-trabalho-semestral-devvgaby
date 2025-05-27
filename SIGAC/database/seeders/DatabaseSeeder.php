@@ -162,7 +162,6 @@ class DatabaseSeeder extends Seeder
                 'hash' => Str::random(40),
                 'data' => $now,
                 'aluno_id' => 1,
-                'comprovante_id' => 1,
                 'created_at' => $now,
                 'updated_at' => $now,
             ]

@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Declaracao;
 use App\Models\Aluno;
-use App\Models\Comprovante;
 use App\Http\Requests\DeclaracaoRequest;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class DeclaracaoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-     public function index()
+    public function index()
     {
         $declaracoes = auth()->user()->aluno->declaracoes;
         return view('aluno.declaracoes.index', compact('declaracoes'));
@@ -24,7 +27,6 @@ class DeclaracaoController extends Controller
     public function create()
     {
         $alunos = Aluno::all();
-        $comprovantes = Comprovante::all();
         return view('declaracoes.create', compact('alunos', 'comprovantes'));
     }
 
@@ -35,7 +37,9 @@ class DeclaracaoController extends Controller
     {
         $aluno = auth()->user()->aluno;
 
-        $totalHoras = $aluno->comprovantes()->sum('horas');
+        $user = $aluno->user;
+
+        $totalHoras = $user->documentos()->where('status', 'aprovado')->sum('horas_out');
 
         if ($totalHoras < 120) {
             return redirect()->back()->with('error', 'Você ainda não possui horas suficientes para emitir a declaração.');
@@ -53,13 +57,17 @@ class DeclaracaoController extends Controller
             'totalHoras' => $totalHoras,
         ]);
 
-        return $pdf->download('declaracao.pdf');
+        return response($pdf->output())
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="declaracao.pdf"');
     }
+
+
 
     /**
      * Display the specified resource.
      */
-     public function show(Declaracao $declaracao)
+    public function show(Declaracao $declaracao)
     {
         return view('aluno.declaracoes.show', compact('declaracao'));
     }
@@ -69,7 +77,7 @@ class DeclaracaoController extends Controller
      */
     public function edit(Declaracao $declaracao)
     {
-       
+
     }
 
     /**
@@ -77,7 +85,7 @@ class DeclaracaoController extends Controller
      */
     public function update(DeclaracaoRequest $request, Declaracao $declaracao)
     {
-        
+
     }
 
     /**
@@ -85,6 +93,6 @@ class DeclaracaoController extends Controller
      */
     public function destroy(Declaracao $declaracao)
     {
-        
+
     }
-}   
+}

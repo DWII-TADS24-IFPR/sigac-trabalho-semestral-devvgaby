@@ -25,7 +25,6 @@ class DeclaracaoRequest extends FormRequest
             'hash' => 'required|unique:declaracoes,hash,' . $this->route('declaracao'), 
             'data' => 'required|date',
             'aluno_id' => 'required|exists:alunos,id',
-            'comprovante_id' => 'required|exists:comprovantes,id',
         ];
     }
 }
