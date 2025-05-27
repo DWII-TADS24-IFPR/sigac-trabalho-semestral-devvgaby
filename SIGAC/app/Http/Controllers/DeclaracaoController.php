@@ -12,10 +12,10 @@ class DeclaracaoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+     public function index()
     {
-        $declaracoes = Declaracao::all();
-        return view('declaracoes.index', compact('declaracoes'));
+        $declaracoes = auth()->user()->aluno->declaracoes;
+        return view('aluno.declaracoes.index', compact('declaracoes'));
     }
 
     /**
@@ -31,19 +31,37 @@ class DeclaracaoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(DeclaracaoRequest $request)
+    public function store()
     {
-        Declaracao::create($request->all());
+        $aluno = auth()->user()->aluno;
 
-        return redirect()->route('declaracoes.index')->with('success', 'Declaração criada com sucesso!');
+        $totalHoras = $aluno->comprovantes()->sum('horas');
+
+        if ($totalHoras < 120) {
+            return redirect()->back()->with('error', 'Você ainda não possui horas suficientes para emitir a declaração.');
+        }
+
+        $declaracao = Declaracao::create([
+            'hash' => Str::uuid(),
+            'data' => Carbon::now(),
+            'aluno_id' => $aluno->id,
+        ]);
+
+        $pdf = Pdf::loadView('aluno.declaracoes.pdf', [
+            'declaracao' => $declaracao,
+            'aluno' => $aluno,
+            'totalHoras' => $totalHoras,
+        ]);
+
+        return $pdf->download('declaracao.pdf');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Declaracao $declaracao)
+     public function show(Declaracao $declaracao)
     {
-        return view('declaracoes.show', compact('declaracao'));
+        return view('aluno.declaracoes.show', compact('declaracao'));
     }
 
     /**
@@ -51,9 +69,7 @@ class DeclaracaoController extends Controller
      */
     public function edit(Declaracao $declaracao)
     {
-        $alunos = Aluno::all();
-        $comprovantes = Comprovante::all();
-        return view('declaracoes.edit', compact('declaracao', 'alunos', 'comprovantes'));
+       
     }
 
     /**
@@ -61,9 +77,7 @@ class DeclaracaoController extends Controller
      */
     public function update(DeclaracaoRequest $request, Declaracao $declaracao)
     {
-        $declaracao->update($request->all());
-
-        return redirect()->route('declaracoes.index')->with('success', 'Declaração atualizada com sucesso!');
+        
     }
 
     /**
@@ -71,8 +85,6 @@ class DeclaracaoController extends Controller
      */
     public function destroy(Declaracao $declaracao)
     {
-        $declaracao->delete();
-
-        return redirect()->route('declaracoes.index')->with('success', 'Declaração excluída com sucesso!');
+        
     }
-}
+}   
