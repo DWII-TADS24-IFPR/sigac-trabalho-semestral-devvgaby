@@ -34,14 +34,24 @@ class AlunoController extends Controller
     public function store(AlunoRequest $request)
     {
         $data = $request->validated();
+        $user = User::create([
+            'name' => $data['nome'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['senha']),
+            'role_id' => 2, 
+            'curso_id' => $data['curso_id'],
+            'turma_id' => $data['turma_id'],
+        ]);
 
-        if (!empty($data['senha'])) {
-            $data['senha'] = bcrypt($data['senha']);
-        }
-
-        Aluno::create($data);
-
-        return redirect()->route('admin.alunos.index')->with('success', 'Aluno cadastrado com sucesso!');
+        Aluno::create([
+            'nome' => $data['nome'],
+            'cpf' => $data['cpf'],
+            'email' => $data['email'],
+            'senha' => bcrypt($data['senha']),
+            'curso_id' => $data['curso_id'],
+            'turma_id' => $data['turma_id'],
+            'user_id' => $user->id,
+        ]);
     }
 
 
