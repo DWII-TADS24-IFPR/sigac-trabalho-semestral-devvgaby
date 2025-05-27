@@ -39,6 +39,7 @@ class SolicitacaoController extends Controller
     {
         $request->validate([
             'atividade' => 'required|string|max:255',
+            'descricao' => 'required|string',
             'horas_in' => 'required|numeric|min:0.5',
             'categoria_id' => 'required|exists:categorias,id',
             'arquivo' => 'required|file|mimes:pdf|max:2048',
@@ -48,6 +49,7 @@ class SolicitacaoController extends Controller
 
         Documento::create([
             'atividade' => $request->atividade,
+            'descricao' => $request->descricao,
             'horas_in' => $request->horas_in,
             'categoria_id' => $request->categoria_id,
             'user_id' => Auth::id(),
