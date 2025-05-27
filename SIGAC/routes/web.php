@@ -16,7 +16,6 @@ use App\Http\Controllers\DeclaracaoController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\SolicitacaoController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
 use App\Http\Middleware\CheckRole;
 
 Route::get('/', function () {
