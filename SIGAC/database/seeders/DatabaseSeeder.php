@@ -12,16 +12,18 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        $now = Carbon::now();
+
         // Níveis
         DB::table('niveis')->insert([
-            ['id' => 1, 'nome' => 'Técnico'],
-            ['id' => 2, 'nome' => 'Superior'],
+            ['id' => 1, 'nome' => 'Técnico', 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 2, 'nome' => 'Superior', 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         // Eixos
         DB::table('eixos')->insert([
-            ['id' => 1, 'nome' => 'Informática'],
-            ['id' => 2, 'nome' => 'Saúde'],
+            ['id' => 1, 'nome' => 'Informática', 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 2, 'nome' => 'Saúde', 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         // Cursos
@@ -33,6 +35,8 @@ class DatabaseSeeder extends Seeder
                 'total_horas' => 1200,
                 'nivel_id' => 1,
                 'eixo_id' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'id' => 2,
@@ -41,29 +45,31 @@ class DatabaseSeeder extends Seeder
                 'total_horas' => 1800,
                 'nivel_id' => 2,
                 'eixo_id' => 2,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
         // Turmas
         DB::table('turmas')->insert([
-            ['id' => 1, 'curso_id' => 1, 'ano' => 2025],
-            ['id' => 2, 'curso_id' => 2, 'ano' => 2025],
+            ['id' => 1, 'curso_id' => 1, 'ano' => 2025, 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 2, 'curso_id' => 2, 'ano' => 2025, 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         // Roles
         DB::table('roles')->insert([
-            ['id' => 1, 'nome' => 'admin'],
-            ['id' => 2, 'nome' => 'aluno'],
+            ['id' => 1, 'nome' => 'admin', 'created_at' => $now, 'updated_at' => $now],
+            ['id' => 2, 'nome' => 'aluno', 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         // Resources
         DB::table('resources')->insert([
-            ['id' => 1, 'nome' => 'comprovantes'],
+            ['id' => 1, 'nome' => 'comprovantes', 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         // Permissions
         DB::table('permissions')->insert([
-            ['role_id' => 1, 'resource_id' => 1, 'permission' => true],
+            ['role_id' => 1, 'resource_id' => 1, 'permission' => true, 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         // Users
@@ -75,6 +81,8 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('senha123'),
                 'role_id' => 1,
                 'curso_id' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'id' => 2,
@@ -83,6 +91,8 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('senha123'),
                 'role_id' => 2,
                 'curso_id' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ]);
 
@@ -97,6 +107,8 @@ class DatabaseSeeder extends Seeder
                 'user_id' => 2,
                 'curso_id' => 1,
                 'turma_id' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ]);
 
@@ -107,6 +119,8 @@ class DatabaseSeeder extends Seeder
                 'nome' => 'Atividade Complementar',
                 'maximo_horas' => 100.0,
                 'curso_id' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ]);
 
@@ -119,6 +133,8 @@ class DatabaseSeeder extends Seeder
                 'categoria_id' => 1,
                 'aluno_id' => 1,
                 'user_id' => 2,
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ]);
 
@@ -134,6 +150,8 @@ class DatabaseSeeder extends Seeder
                 'horas_out' => 0,
                 'categoria_id' => 1,
                 'user_id' => 2,
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ]);
 
@@ -142,9 +160,11 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => 1,
                 'hash' => Str::random(40),
-                'data' => Carbon::now(),
+                'data' => $now,
                 'aluno_id' => 1,
                 'comprovante_id' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ]);
     }
