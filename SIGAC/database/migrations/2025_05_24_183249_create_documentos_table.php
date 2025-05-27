@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('horas_in');
             $table->string('status');
             $table->string('comentario')->nullable();
-            $table->float('horas_out');
+            $table->float('horas_out')->nullable(); 
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
