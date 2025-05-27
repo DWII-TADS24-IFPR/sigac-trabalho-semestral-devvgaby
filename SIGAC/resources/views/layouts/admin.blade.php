@@ -9,7 +9,6 @@
     @vite(['resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
-
     @stack('styles')
 </head>
 
@@ -22,6 +21,10 @@
                         <i class="bi bi-house-door-fill me-2"></i> 
                         SIGAC
                     </a>
+                    
+                    <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target=".sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                 </div>
             </nav>
 
