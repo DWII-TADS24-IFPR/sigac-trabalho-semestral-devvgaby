@@ -2,54 +2,71 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
+        // Níveis
         DB::table('niveis')->insert([
             ['id' => 1, 'nome' => 'Técnico'],
             ['id' => 2, 'nome' => 'Superior'],
         ]);
 
+        // Eixos
         DB::table('eixos')->insert([
             ['id' => 1, 'nome' => 'Informática'],
             ['id' => 2, 'nome' => 'Saúde'],
         ]);
 
+        // Cursos
         DB::table('cursos')->insert([
-            ['id' => 1, 'nome' => 'Informática para Internet', 'sigla' => 'INFO', 'total_horas' => 1200, 'nivel_id' => 1, 'eixo_id' => 1],
-            ['id' => 2, 'nome' => 'Enfermagem', 'sigla' => 'ENF', 'total_horas' => 1800, 'nivel_id' => 2, 'eixo_id' => 2],
+            [
+                'id' => 1,
+                'nome' => 'Informática para Internet',
+                'sigla' => 'INFO',
+                'total_horas' => 1200,
+                'nivel_id' => 1,
+                'eixo_id' => 1,
+            ],
+            [
+                'id' => 2,
+                'nome' => 'Enfermagem',
+                'sigla' => 'ENF',
+                'total_horas' => 1800,
+                'nivel_id' => 2,
+                'eixo_id' => 2,
+            ],
         ]);
 
+        // Turmas
         DB::table('turmas')->insert([
             ['id' => 1, 'curso_id' => 1, 'ano' => 2025],
             ['id' => 2, 'curso_id' => 2, 'ano' => 2025],
         ]);
 
+        // Roles
         DB::table('roles')->insert([
             ['id' => 1, 'nome' => 'admin'],
             ['id' => 2, 'nome' => 'aluno'],
         ]);
 
+        // Resources
         DB::table('resources')->insert([
             ['id' => 1, 'nome' => 'comprovantes'],
-
         ]);
 
+        // Permissions
         DB::table('permissions')->insert([
             ['role_id' => 1, 'resource_id' => 1, 'permission' => true],
         ]);
 
+        // Users
         DB::table('users')->insert([
             [
                 'id' => 1,
@@ -69,6 +86,7 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        // Aluno
         DB::table('alunos')->insert([
             [
                 'id' => 1,
@@ -82,6 +100,7 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        // Categorias
         DB::table('categorias')->insert([
             [
                 'id' => 1,
@@ -91,6 +110,7 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        // Comprovantes
         DB::table('comprovantes')->insert([
             [
                 'id' => 1,
@@ -102,6 +122,7 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        // Documentos
         DB::table('documentos')->insert([
             [
                 'id' => 1,
@@ -116,11 +137,12 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        // Declarações
         DB::table('declaracoes')->insert([
             [
                 'id' => 1,
                 'hash' => Str::random(40),
-                'data' => now(),
+                'data' => Carbon::now(),
                 'aluno_id' => 1,
                 'comprovante_id' => 1,
             ]
