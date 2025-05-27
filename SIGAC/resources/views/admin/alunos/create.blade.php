@@ -46,22 +46,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="user_id" class="form-label">Usuário</label>
-                <select name="user_id" id="user_id" class="form-select @error('user_id') is-invalid @enderror" required>
-                    <option value="" disabled selected>Selecione o usuário</option>
-                    @foreach($usuariosSemAluno as $user)
-                        <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                            {{ $user->name }} ({{ $user->email }})
-                        </option>
-                    @endforeach
-                </select>
-                @error('user_id')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-
-            <div class="mb-3">
                 <label for="curso_id" class="form-label">Curso</label>
                 <select name="curso_id" id="curso_id" class="form-select" required>
                     <option value="">Selecione um curso</option>
