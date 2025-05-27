@@ -23,7 +23,12 @@ class AlunoController extends Controller
     {
         $cursos = Curso::all();
         $turmas = Turma::with('curso')->get();
-        return view('admin.alunos.create', compact('cursos', 'turmas'));
+
+        $usuariosComAluno = Aluno::pluck('user_id')->toArray();
+
+        $usuariosSemAluno = User::whereNotIn('id', $usuariosComAluno)->get();
+
+        return view('admin.alunos.create', compact('cursos', 'turmas', 'usuariosSemAluno'));
     }
 
     public function store(AlunoRequest $request)
@@ -42,7 +47,7 @@ class AlunoController extends Controller
 
     public function show(string $id)
     {
-    
+
     }
 
     public function edit(string $id)
@@ -62,7 +67,7 @@ class AlunoController extends Controller
         if (!empty($data['senha'])) {
             $data['senha'] = bcrypt($data['senha']);
         } else {
-            unset($data['senha']); 
+            unset($data['senha']);
         }
 
         $aluno->update($data);
