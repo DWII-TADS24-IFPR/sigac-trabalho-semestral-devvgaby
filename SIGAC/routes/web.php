@@ -3,14 +3,18 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\TurmaController;
 use App\Http\Controllers\EixoController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\GraficoController;
+
+use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\DeclaracaoController;
+use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\SolicitacaoController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 use App\Http\Middleware\CheckRole;
@@ -33,21 +37,20 @@ Route::middleware(['auth', CheckRole::class . ':admin'])->prefix('admin')->name(
     Route::resource('niveis', NivelController::class);
     Route::resource('categorias', CategoriaController::class);
     Route::resource('avaliacoes', AvaliacaoController::class);
+    Route::post('avaliacoes/{id}/aprovar', [AvaliacaoController::class, 'aprovar'])->name('avaliacoes.aprovar');
+    Route::post('avaliacoes/{id}/rejeitar', [AvaliacaoController::class, 'rejeitar'])->name('avaliacoes.rejeitar');
     Route::resource('graficos', GraficoController::class);
-    
+
 
 });
 
-Route::middleware(['auth', CheckRole::class . ':aluno'])->group(function () {
-    Route::get('/aluno/dashboard', [AlunoController::class, 'dashboard'])
-        ->name('aluno.dashboard');
+Route::middleware(['auth', CheckRole::class . ':aluno'])->prefix('aluno')->name('aluno.')->group(function (){
+    Route::get('/dashboard', [AlunoController::class, 'dashboard'])->name('dashboard');
+    Route::resource('perfil', PerfilController::class);
+    Route::resource('solicitacoes', SolicitacaoController::class);
+    Route::resource('declaracoes', DeclaracaoController::class);
 });
-
-//Rotas para as classes controllers
-// Route::resource('comprovantes', ComprovanteController::class);
-// Route::resource('declaracoes', DeclaracaoController::class);
-// Route::resource('documentos', DocumentoController::class);
-
+     
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
