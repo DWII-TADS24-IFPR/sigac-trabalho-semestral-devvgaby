@@ -191,8 +191,13 @@
                 </div>
 
                 @yield('content')
+
+                 <footer class="mt-5 pt-3 border-top text-center text-muted">
+                    &copy; {{ date('Y') }} SIGAC - Dashboard Administrativo
+                </footer>
             </main>
         </div>
+        
     </div>
 
     @stack('scripts')
