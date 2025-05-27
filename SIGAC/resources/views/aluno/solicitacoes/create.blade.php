@@ -22,6 +22,11 @@
     </div>
 
     <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição</label>
+        <textarea name="descricao" id="descricao" class="form-control" required></textarea>
+    </div>
+
+    <div class="mb-3">
         <label for="horas">Horas</label>
         <input type="number" step="0.1" class="form-control" name="horas_in" required>
     </div>
@@ -42,5 +47,6 @@
 
     <button type="submit" class="btn btn-success">Enviar Solicitação</button>
 </form>
+
 @endsection
 
