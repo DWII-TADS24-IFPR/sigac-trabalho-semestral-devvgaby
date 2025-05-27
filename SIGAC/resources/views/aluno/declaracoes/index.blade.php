@@ -10,6 +10,12 @@
         </div>
     @endif
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <form action="{{ route('aluno.declaracoes.store') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-success mb-3">

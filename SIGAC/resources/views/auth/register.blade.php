@@ -68,19 +68,18 @@
                         <div class="form-floating mb-3">
                             <select name="turma_id" id="turma_id"
                                 class="form-select @error('turma_id') is-invalid @enderror" required>
-                                <option value="" disabled {{ old('turma_id') ? '' : 'selected' }}>Selecione o ano da turma
-                                </option>
+                                <option value="" disabled {{ old('turma_id') ? '' : 'selected' }}>Selecione o ano da turma</option>
                                 @foreach($turmas as $turma)
                                     <option value="{{ $turma->id }}" {{ old('turma_id') == $turma->id ? 'selected' : '' }}>
                                         {{ $turma->ano }} - {{ $turma->curso->nome }}
                                     </option>
                                 @endforeach
-                                <label for="turma_id">Turma</label>
-                                @error('turma_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            </select>
+                            <label for="turma_id">Turma</label>
+                            @error('turma_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-
 
                         <div class="form-floating mb-3">
                             <input type="password" name="password" id="password"
