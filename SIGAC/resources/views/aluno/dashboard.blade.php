@@ -4,6 +4,7 @@
 @section('page-title', 'Meu Painel')
 
 @section('content')
+ <h4 class="mb-4">Olá, {{ Auth::user()->name }}! 👋</h4>
 <div class="row g-4">
     <div class="col-md-4">
         <div class="card text-white bg-success shadow-sm rounded">
