@@ -111,7 +111,7 @@
 
                     <ul class="nav flex-column mt-4 px-3">
                         <li class="nav-item">
-                            <a class="nav-link text-primary fw-semibold" href="{{ route('aluno.cadastro.index') }}">
+                            <a class="nav-link text-primary fw-semibold" href="{{ route('aluno.perfil.index') }}">
                                 <i class="bi bi-person me-2"></i> Meu Perfil
                             </a>
                         </li>
